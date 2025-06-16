@@ -4,12 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/main.min.css" />
-    <title>FinSweet||HOME</title>
+    <title>Dessert ste</title>
   </head>
   <body>
-    <header class="header">
-    </header>
-    <main class="main"></main>
-    <footer class="footer"></footer>
+    <main>
+      <div class="container">
+        <section class="card">
+          <div class="card-left">
+            <h1 class="site-title">Desserts</h1>
+            <ul class="desserts-list" id="desserts-list">
+              <template>
+                <li class="dessert-item">
+                  <div class="card-top">
+                    <img
+                      class="dessert-image"
+                      src="./images/waffle.jpg"
+                      alt=""
+                      width="250"
+                      height="240"
+                    />
+                    <button class="dessert-btn">
+                      <img
+                        width="20"
+                        height="20"
+                        src="./images/shopping-card.svg"
+                        alt=""
+                      />
+                      <p class="btn-title">Add to Cart</p>
+                    </button>
+                  </div>
+                  <div class="card-bottom">
+                    <p class="dessert-title">Waffle</p>
+                    <p class="dessert-desc">Waffle with Berries</p>
+                    <p class="dessert-price">$6.50</p>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </div>
+          <div class="card-right">
+            <h3 class="card-right-title">Your Cart (0)</h3>
+            <img class="card-right-image" src="./images/cake-icon.svg" alt="" width="128" height="128" />
+            <p class="card-right-desc">Your added items will appear here</p>
+          </div>
+        </section>
+      </div>
+    </main>
+    <script type="module" src="./js/app.js"></script>
   </body>
 </html>

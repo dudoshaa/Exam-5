@@ -1,0 +1,173 @@
+.container {
+  width: 100%;
+  max-width: 1216px;
+  margin: 8.8rem auto;
+}
+
+.site-title {
+  font-weight: 700;
+  font-size: map-get($text-preset-1, font-size);
+  line-height: 120%;
+  letter-spacing: 0%;
+  color: $rose-900;
+  margin-bottom: 3.2rem;
+}
+.card {
+  display: flex;
+}
+.card-left {
+  margin-right: 3.2rem;
+}
+.desserts-list {
+  display: grid;
+  gap: 2.4rem;
+
+  grid-template-columns: repeat(3, 1fr);
+}
+.dessert-item {
+  display: flex;
+  margin-bottom: 0.8rem;
+  flex-direction: column;
+}
+.card-top {
+  position: relative;
+  margin-bottom: 3.8rem;
+}
+
+.dessert-image {
+  border-radius: $spacing-100;
+}
+.dessert-btn {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -10%;
+  left: 12%;
+  gap: 0.8rem;
+  border-radius: 999px;
+  border-width: 1px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 2.8rem;
+  padding-right: 2.8rem;
+  border: 1px solid $rose-400;
+  background-color: #fff;
+}
+.btn-title {
+  font-weight: 600;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+.card-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.dessert-title {
+  font-weight: 400;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $rose-500;
+}
+.dessert-desc {
+  font-weight: 600;
+  font-size: $spacing-200;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #260f08;
+}
+.dessert-price {
+  font-weight: 600;
+  font-size: $spacing-200;
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $red;
+}
+.card-right {
+  width: 384px;
+  height: 299px;
+  border-radius: $spacing-150;
+  padding: 2.4rem;
+  background-color: #fff;
+}
+.card-right-title {
+  font-weight: 700;
+
+  font-size: map-get($text-preset-2, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $red;
+  margin-bottom: 2.4rem;
+}
+.card-right-image {
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+}
+.card-right-desc {
+  font-weight: 600;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: center;
+  color: $rose-500;
+}
+
+
+
+@media (max-width: 991px) {
+    
+    .card {
+      flex-direction: column;
+      gap: 3.2rem;
+    }
+  
+    .card-left {
+      margin-right: 0;
+    }
+  
+   
+    .card-right {
+      width: 100%;
+      height: auto;
+      margin-top: 3.2rem;
+    }
+  
+    
+  }
+  
+ 
+  @media (max-width: 767px) {
+    
+    .desserts-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  
+  @media (max-width: 599px) {
+  
+    .desserts-list {
+      grid-template-columns: 1fr;
+    }
+  
+   
+    .site-title {
+      font-size: 3.6rem;  
+      text-align: center;
+    }
+  
+    
+    
+  
+    
+    .card-right-title { font-size: 2rem; }  
+    .card-right-image { width: 96px; height: 96px; }
+    .card-right-desc  { font-size: 1.2rem; } 
+  }
+  
+ 
+  
+  
