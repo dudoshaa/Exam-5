@@ -4,6 +4,9 @@
   margin: 8.8rem auto;
 }
 
+.hidden {
+  display: none !important;
+}
 .site-title {
   font-weight: 700;
   font-size: map-get($text-preset-1, font-size);
@@ -52,6 +55,11 @@
   padding-right: 2.8rem;
   border: 1px solid $rose-400;
   background-color: #fff;
+  &:hover {
+    border-color: $red;
+    transition: 0.3s;
+    color: $red;
+  }
 }
 .btn-title {
   font-weight: 600;
@@ -59,6 +67,72 @@
   line-height: 100%;
   letter-spacing: 0%;
 }
+button {
+  background-color: transparent;
+  border: 0;
+}
+
+.dessert-btn-add {
+  width: 160px;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: -10%;
+  left: 15%;
+  justify-content: space-between;
+  padding: 12px;
+  border-radius: 999px;
+  background-color: $red;
+  border: 1px solid $red;
+}
+
+.btn-remove-amount span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.btn-remove-amount:hover span {
+  background-color: #fff;
+}
+.btn-remove-amount svg path {
+  transition: all 0.3s;
+}
+.btn-remove-amount:hover span svg path {
+  fill: $red;
+}
+
+.btn-add-amount span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+.btn-add-amount:hover span {
+  background-color: #fff;
+}
+.btn-add-amount svg path {
+  transition: all 0.3s;
+}
+.btn-add-amount:hover span svg path {
+  fill: $red;
+}
+.amount {
+  font-weight: 600;
+  font-size: map-get($text-preset-4-bold, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: #fff;
+}
+
 .card-bottom {
   display: flex;
   flex-direction: column;
@@ -101,6 +175,9 @@
   color: $red;
   margin-bottom: 2.4rem;
 }
+.border-red {
+  border: 2px solid $red;
+}
 .card-right-image {
   margin-right: auto;
   margin-left: auto;
@@ -115,59 +192,47 @@
   color: $rose-500;
 }
 
-
-
 @media (max-width: 991px) {
-    
-    .card {
-      flex-direction: column;
-      gap: 3.2rem;
-    }
-  
-    .card-left {
-      margin-right: 0;
-    }
-  
-   
-    .card-right {
-      width: 100%;
-      height: auto;
-      margin-top: 3.2rem;
-    }
-  
-    
+  .card {
+    flex-direction: column;
+    gap: 3.2rem;
   }
-  
- 
-  @media (max-width: 767px) {
-    
-    .desserts-list {
-      grid-template-columns: repeat(2, 1fr);
-    }
+
+  .card-left {
+    margin-right: 0;
   }
-  
-  
-  @media (max-width: 599px) {
-  
-    .desserts-list {
-      grid-template-columns: 1fr;
-    }
-  
-   
-    .site-title {
-      font-size: 3.6rem;  
-      text-align: center;
-    }
-  
-    
-    
-  
-    
-    .card-right-title { font-size: 2rem; }  
-    .card-right-image { width: 96px; height: 96px; }
-    .card-right-desc  { font-size: 1.2rem; } 
+
+  .card-right {
+    width: 100%;
+    height: auto;
+    margin-top: 3.2rem;
   }
-  
- 
-  
-  
+}
+
+@media (max-width: 767px) {
+  .desserts-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .desserts-list {
+    grid-template-columns: 1fr;
+  }
+
+  .site-title {
+    font-size: 3.6rem;
+    text-align: center;
+  }
+
+  .card-right-title {
+    font-size: 2rem;
+  }
+  .card-right-image {
+    width: 96px;
+    height: 96px;
+  }
+  .card-right-desc {
+    font-size: 1.2rem;
+  }
+}
