@@ -65,3 +65,5 @@ desserts.forEach((dessert) => {
   dessertPrice.textContent = formatNumber(price);
   dessertsList.appendChild(clone);
 });
+
+
