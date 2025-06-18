@@ -39,6 +39,7 @@
 
 .dessert-image {
   border-radius: $spacing-100;
+  border: 2px solid transparent;
 }
 .dessert-btn {
   display: flex;
@@ -182,6 +183,7 @@ button {
   margin-right: auto;
   margin-left: auto;
   align-items: center;
+ 
 }
 .card-right-desc {
   font-weight: 600;
@@ -190,6 +192,54 @@ button {
   letter-spacing: 0%;
   text-align: center;
   color: $rose-500;
+}
+
+.card-list {
+}
+.card-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1.6rem;
+  border-bottom: 1px solid $rose-100;
+}
+.card-item__left {
+}
+.dessert-name {
+  font-weight: 600;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $rose-900;
+  margin-bottom: 0.8rem;
+}
+.card-item__bottom {
+  display: flex;
+  gap: $spacing-100;
+  align-items: center;
+}
+.cart-item__quantity {
+  font-weight: 600;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $red;
+}
+.cart-item__price {
+  font-weight: 400;
+  font-size: map-get($text-preset-4, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $rose-500;
+}
+.cart-item__total {
+  font-weight: 600;
+  font-size: map-get($text-preset-4-bold, font-size);
+  line-height: 100%;
+  letter-spacing: 0%;
+  color: $rose-500;
+}
+.remover-btn {
 }
 
 @media (max-width: 991px) {

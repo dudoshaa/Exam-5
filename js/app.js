@@ -9,6 +9,17 @@ desserts.forEach((dessert) => {
 
   const { title, description, images, price } = dessert;
 
+  const dessertName = clone.querySelector(".dessert-name");
+  const cartQuantity = clone.querySelector(".cart-item__quantity");
+  const cardPrice = clone.querySelector(".cart-item__price");
+  const cartTotal=clone.querySelector(".cart-item__total")
+
+  
+    
+
+
+
+
   const dessertImage = clone.querySelector(".dessert-image");
   const dessertTitle = clone.querySelector(".dessert-title");
   const dessertDesc = clone.querySelector(".dessert-desc");
@@ -17,13 +28,15 @@ desserts.forEach((dessert) => {
   const dessertBtn = clone.querySelector(".dessert-btn");
   const btnRemoveAmount = clone.querySelector(".btn-remove-amount");
   const amount = clone.querySelector(".amount");
+  const cardList=clone.querySelector(".card-list")
 
-  dessertBtn.addEventListener("click", () => {
+  dessertBtn.addEventListener("click", () => {    
     dessertBtn.classList.add("hidden");
     dessertBtnAdd.classList.remove("hidden");
     dessertImage.classList.add("border-red");
-    dessertImage.style.width = "246px";
   });
+
+  
 
   let counter = 1;
   amount.textContent = counter;
@@ -35,6 +48,8 @@ desserts.forEach((dessert) => {
     amount.textContent = counter;
   });
 
+
+  
   btnRemoveAmount.addEventListener("click", () => {
     counter--;
     if (counter <= 0) {
@@ -42,7 +57,6 @@ desserts.forEach((dessert) => {
       dessertBtnAdd.classList.add("hidden");
       dessertBtn.classList.remove("hidden");
       dessertImage.classList.remove("border-red");
-      dessertImage.style.width = "";
     } else {
       amount.textContent = counter;
     }
