@@ -1,69 +1,87 @@
 import { desserts } from "./data.js";
 import formatNumber from "./formatNumber.js";
 
-const dessertsList = document.getElementById("desserts-list");
-const template = document.querySelector("template");
-const cartList = document.querySelector(".card-list");
-const emptyImg = document.querySelector(".card-right-image");
 
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+const dessertsList  = document.getElementById("desserts-list");
+const template      = document.querySelector("template");
+const cartList      = document.querySelector(".card-list");
+const emptyImg      = document.querySelector(".card-right-image");
+const orderTotalEl  = document.querySelector(".order-total p");
+const orderBtn      = document.querySelector(".order-btn");
 
-function saveCart() {
-  localStorage.setItem("cart", JSON.stringify(cart));
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+const saveCart      = () => localStorage.setItem("cart", JSON.stringify(cart));
+const cartTotal     = () => cart.reduce((s, i) => s + i.qty * i.price, 0);
+
+
+function updateOrderTotal() {
+  orderTotalEl.textContent = formatNumber(cartTotal());
 }
 
-function addToCart(dessert, qty = 1) {
-  const item = cart.find((c) => c.id === dessert.id);
-  item ? (item.qty += qty) : cart.push({ ...dessert, qty });
-  if (item && item.qty <= 0) cart = cart.filter((c) => c.id !== dessert.id);
+function changeItemQty(dessert, delta) {
+  const found = cart.find((i) => i.id === dessert.id);
+  if (found) {
+    found.qty += delta;
+    if (found.qty <= 0) cart = cart.filter((i) => i.id !== dessert.id);
+  } else if (delta > 0) {
+    cart.push({ ...dessert, qty: delta });
+  }
   saveCart();
   renderCart();
-  syncGridCard(dessert.id);
+  syncProductCard(dessert.id);
+}
+
+function clearCart() {
+  cart = [];
+  saveCart();
+  renderCart();
+  desserts.forEach((d) => syncProductCard(d.id));
 }
 
 desserts.forEach((dessert) => {
-  const clone = template.content.cloneNode(true);
-  const li = clone.querySelector(".dessert-item");
+  const node  = template.content.cloneNode(true);
+  const li    = node.querySelector(".dessert-item");
   li.dataset.id = dessert.id;
 
-  const imgEl = clone.querySelector(".dessert-image");
-  const addBtn = clone.querySelector(".dessert-btn");
-  const panel = clone.querySelector(".dessert-btn-add");
-  const amountSpan = clone.querySelector(".amount");
-  const plusBtn = clone.querySelector(".btn-add-amount");
-  const minusBtn = clone.querySelector(".btn-remove-amount");
 
-  clone.querySelector(".dessert-title").textContent = dessert.title;
-  clone.querySelector(".dessert-desc").textContent = dessert.description;
-  clone.querySelector(".dessert-price").textContent = `$${formatNumber(
-    dessert.price
-  )}`;
-  imgEl.src = dessert.images[0];
+  const img      = node.querySelector(".dessert-image");
+  const addBtn   = node.querySelector(".dessert-btn");
+  const qtyPane  = node.querySelector(".dessert-btn-add");
+  const amountEl = node.querySelector(".amount");
+  const plusBtn  = node.querySelector(".btn-add-amount");
+  const minusBtn = node.querySelector(".btn-remove-amount");
 
-  const stored = cart.find((c) => c.id === dessert.id);
+ 
+  img.src = dessert.images[0];
+  node.querySelector(".dessert-title").textContent = dessert.title;
+  node.querySelector(".dessert-desc").textContent  = dessert.description;
+  node.querySelector(".dessert-price").textContent = formatNumber(dessert.price);
+
+  
+  const stored = cart.find((i) => i.id === dessert.id);
   if (stored) {
     addBtn.classList.add("hidden");
-    panel.classList.remove("hidden");
-    amountSpan.textContent = stored.qty;
-    imgEl.classList.add("border-red");
+    qtyPane.classList.remove("hidden");
+    amountEl.textContent = stored.qty;
+    img.classList.add("border-red");
   }
 
-  addBtn.addEventListener("click", () => {
-    addToCart(dessert, 1);
-  });
 
-  plusBtn.addEventListener("click", () => addToCart(dessert, 1));
+  addBtn .addEventListener("click", () => changeItemQty(dessert,  1));
+  plusBtn.addEventListener("click", () => changeItemQty(dessert,  1));
+  minusBtn.addEventListener("click", () => changeItemQty(dessert, -1));
 
-  minusBtn.addEventListener("click", () => addToCart(dessert, -1));
-
-  dessertsList.appendChild(clone);
+  dessertsList.appendChild(node);
 });
 
+
+   
 function renderCart() {
   cartList.innerHTML = "";
 
   if (!cart.length) {
     emptyImg.style.display = "block";
+    updateOrderTotal();
     return;
   }
   emptyImg.style.display = "none";
@@ -77,12 +95,10 @@ function renderCart() {
         <div class="card-item__bottom">
           <span class="cart-item__quantity">${item.qty}x</span>
           <span class="cart-item__price"> @${formatNumber(item.price)}</span>
-          <span class="cart-item__total">${formatNumber(
-            item.qty * item.price
-          )}</span>
+          <span class="cart-item__total">${formatNumber(item.qty * item.price)}</span>
         </div>
       </div>
-      <button class="remover-btn" data-id="${item.id}"> <span
+       <button class="remover-btn" data-id="${item.id}"> <span
                         ><svg
                           width="20"
                           height="20"
@@ -99,41 +115,50 @@ function renderCart() {
                             fill="#AD8A85"
                           />
                         </svg>
-                      </span></button>
-    `;
+                      </span></button>`;
     cartList.appendChild(row);
   });
+
+  updateOrderTotal();
 }
 
+
 cartList.addEventListener("click", (e) => {
-  const del = e.target.closest(".remover-btn");
-  if (!del) return;
-  const id = +del.dataset.id;
-  const item = cart.find((c) => c.id === id);
-  addToCart(item, -item.qty);
+  const btn = e.target.closest(".remover-btn");
+  if (!btn) return;
+  const id   = +btn.dataset.id;
+  const item = cart.find((i) => i.id === id);
+  if (item) changeItemQty(item, -item.qty);
 });
 
-function syncGridCard(id) {
-  const li = dessertsList.querySelector(`.dessert-item[data-id="${id}"]`);
+
+function syncProductCard(id) {
+  const li   = dessertsList.querySelector(`.dessert-item[data-id='${id}']`);
   if (!li) return;
-
-  const addBtn = li.querySelector(".dessert-btn");
-  const panel = li.querySelector(".dessert-btn-add");
-  const amountSpan = li.querySelector(".amount");
-  const imgEl = li.querySelector(".dessert-image");
-
-  const item = cart.find((c) => c.id === id);
+  const addBtn   = li.querySelector(".dessert-btn");
+  const qtyPane  = li.querySelector(".dessert-btn-add");
+  const amountEl = li.querySelector(".amount");
+  const img      = li.querySelector(".dessert-image");
+  const item     = cart.find((i) => i.id === id);
 
   if (item) {
     addBtn.classList.add("hidden");
-    panel.classList.remove("hidden");
-    amountSpan.textContent = item.qty;
-    imgEl.classList.add("border-red");
+    qtyPane.classList.remove("hidden");
+    amountEl.textContent = item.qty;
+    img.classList.add("border-red");
   } else {
     addBtn.classList.remove("hidden");
-    panel.classList.add("hidden");
-    imgEl.classList.remove("border-red");
+    qtyPane.classList.add("hidden");
+    img.classList.remove("border-red");
   }
 }
+
+
+orderBtn.addEventListener("click", () => {
+  if (!cart.length) return alert("Your cart is empty!");
+  alert(`Thank you! Your order total is ${formatNumber(cartTotal())}.`);
+  clearCart();
+});
+
 
 renderCart();
