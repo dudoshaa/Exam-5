@@ -76,8 +76,8 @@ function renderCart() {
         <h3 class="dessert-name">${item.title}</h3>
         <div class="card-item__bottom">
           <span class="cart-item__quantity">${item.qty}x</span>
-          <span class="cart-item__price"> @$${formatNumber(item.price)}</span>
-          <span class="cart-item__total">$${formatNumber(
+          <span class="cart-item__price"> @${formatNumber(item.price)}</span>
+          <span class="cart-item__total">${formatNumber(
             item.qty * item.price
           )}</span>
         </div>
