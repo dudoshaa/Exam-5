@@ -1,6 +1,13 @@
 import { desserts } from "./data.js";
 import formatNumber from "./formatNumber.js";
 
+const removerBtn = document.querySelector(".remover-btn");
+const cardItem = document.querySelector(".card-item");
+
+removerBtn.addEventListener("click", () => {
+  cardItem.classList.add("hidden");
+});
+
 const dessertsList = document.getElementById("desserts-list");
 const template = document.querySelector("template");
 
@@ -12,13 +19,7 @@ desserts.forEach((dessert) => {
   const dessertName = clone.querySelector(".dessert-name");
   const cartQuantity = clone.querySelector(".cart-item__quantity");
   const cardPrice = clone.querySelector(".cart-item__price");
-  const cartTotal=clone.querySelector(".cart-item__total")
-
-  
-    
-
-
-
+  const cartTotal = clone.querySelector(".cart-item__total");
 
   const dessertImage = clone.querySelector(".dessert-image");
   const dessertTitle = clone.querySelector(".dessert-title");
@@ -28,15 +29,13 @@ desserts.forEach((dessert) => {
   const dessertBtn = clone.querySelector(".dessert-btn");
   const btnRemoveAmount = clone.querySelector(".btn-remove-amount");
   const amount = clone.querySelector(".amount");
-  const cardList=clone.querySelector(".card-list")
+  const cardList = clone.querySelector(".card-list");
 
-  dessertBtn.addEventListener("click", () => {    
+  dessertBtn.addEventListener("click", () => {
     dessertBtn.classList.add("hidden");
     dessertBtnAdd.classList.remove("hidden");
     dessertImage.classList.add("border-red");
   });
-
-  
 
   let counter = 1;
   amount.textContent = counter;
@@ -48,8 +47,6 @@ desserts.forEach((dessert) => {
     amount.textContent = counter;
   });
 
-
-  
   btnRemoveAmount.addEventListener("click", () => {
     counter--;
     if (counter <= 0) {
